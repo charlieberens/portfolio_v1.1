@@ -1,0 +1,65 @@
+@use 'variables' as v;
+@import url("https://use.typekit.net/ypd6rkj.css");
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	::placeholder{
+		color: inherit;
+		font-family: Halcom, 'Helvetica', 'Segoe-UI', sans-serif;
+	}
+}
+body{
+	color: v.$text-1;
+	font-family: Halcom, 'Helvetica', 'Segoe-UI', sans-serif;
+	font-weight: 300;
+	font-size: 17pt;
+	@media screen and (max-width: v.$mobile-break-s){
+		font-size: 13pt;
+	}
+}
+a{
+	color: inherit;
+	text-decoration: inherit;
+}
+
+// Default styles
+section, header{
+	padding: 3em;
+	@media screen and (max-width: v.$mobile-break-m){
+		padding: 2em;
+	}
+}
+h1{
+	font-size: 400%;
+}
+p{
+	line-height: 1.4em;
+
+	&:nth-child(n + 1){
+		margin-top: 1em;
+	}	
+}
+::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+// Reusable styles
+.center-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fh{ //Full height
+	height: 100vh;
+	min-height: 500px;
+}
+
+#debug-num{
+	position: fixed;
+	top: 0;
+	left: 0;
+}

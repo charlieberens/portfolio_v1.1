@@ -1,0 +1,304 @@
+@use "variables" as v;
+
+body {
+    background: linear-gradient(v.$bg-1, v.$bg-2);
+    color: white;
+    overflow: hidden;
+
+    &.loaded {
+        overflow: auto;
+    }
+}
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10;
+    background: linear-gradient(v.$bg-1, v.$bg-2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: 0.5s opacity ease;
+
+    &.loaded {
+        opacity: 0;
+    }
+
+    #loading-spinner {
+        display: flex;
+        justify-content: space-between;
+        width: 75px;
+
+        @for $i from 1 through 6 {
+            .loading-spinner-dot:nth-child(#{$i}n) {
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background: white;
+
+                animation: 1s updown infinite;
+                animation-delay: #{$i * 0.3}s;
+                animation-timing-function: ease-in-out;
+            }
+        }
+    }
+}
+
+@keyframes updown {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(50%);
+    }
+    75% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#boids-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#header-text-cont {
+    z-index: 3;
+}
+#canvas-cont {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+            to left,
+            transparent 50%,
+            v.$bg-2-tp,
+            v.$bg-1-tp-50 70%
+        );
+        z-index: 1;
+
+        @media screen and (max-width: v.$mobile-break) {
+            background: v.$bg-1-tp-50;
+        }
+    }
+}
+section {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    // height: 800px;
+}
+.fade {
+    opacity: 0;
+}
+.section-main {
+    padding-right: 50%;
+
+    @media screen and (max-width: v.$mobile-break) {
+        padding-right: 0;
+    }
+}
+
+// About
+#about-skills-cont-alligner {
+    max-width: 600px;
+
+    #about-skills-cont {
+        width: min(calc(5 * 60pt + 5 * 1.5rem), 100%);
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+
+        svg {
+            margin: 1.5rem;
+            font-size: 60pt;
+        }
+
+        @media screen and (max-width: v.$mobile-break-s) {
+            width: min(calc(5 * 40pt + 5 * 1.5rem), 100%);
+            justify-content: center;
+
+            svg {
+                font-size: 40pt;
+                margin: 1.25rem;
+            }
+        }
+    }
+}
+
+// Projects
+.project {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 1.25em;
+    display: flex;
+    margin-top: 1.5em;
+    background: linear-gradient(v.$bg-1, v.$bg-2);
+    align-items: center;
+    opacity: 0.7;
+    transition: 0.5s opacity;
+
+    .project-img {
+        height: 150px;
+        border-radius: 5px;
+        margin-right: 1em;
+    }
+    .project-title {
+        margin-bottom: 0.25em;
+    }
+    .project-right {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        font-size: 85%;
+    }
+    .project-tech-cont {
+        margin-top: 1rem;
+        font-size: 25pt;
+        svg {
+            margin-right: 0.75rem;
+        }
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    @media screen and (max-width: 1100px) and (min-width: v.$mobile-break),
+        (max-width: v.$mobile-break-m) {
+        flex-flow: column;
+        align-items: center;
+        .project-img {
+            margin-right: 0;
+            margin-bottom: 1em;
+            width: 100%;
+            height: auto;
+        }
+        .project-tech-cont {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            svg {
+                margin: calc(0.75rem/2);
+            }
+        }
+    }
+}
+
+// Contact
+#contact-form {
+    display: flex;
+    flex-flow: column;
+    margin-top: 2em;
+
+    #form-err {
+        font-size: 80%;
+        margin-bottom: 1em;
+        font-style: italic;
+    }
+
+    input,
+    textarea {
+        background: none;
+        padding: 1.25em 1em;
+        color: white;
+        border: 1px solid white;
+        border-radius: 3px;
+        margin-bottom: 2em;
+        width: min(100%, 400px);
+        opacity: 0.6;
+        background: linear-gradient(v.$bg-1, v.$bg-2);
+        transition: 0.5s opacity ease, 0.5s background ease, 0.5s color ease;
+        font-family: inherit;
+
+        &:hover,
+        &:focus {
+            opacity: 1;
+        }
+        &.submit {
+            max-width: 100px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+
+            &:hover {
+                background: white;
+                color: v.$bg-1;
+            }
+        }
+        &::placeholder {
+            opacity: 0.6;
+        }
+    }
+    textarea {
+        max-width: 100%;
+        min-height: 125px;
+        resize: vertical;
+    }
+}
+#contact-form-success {
+    display: flex;
+    justify-content: center;
+
+    span {
+        padding: 1em 1.5em;
+        border: 1px solid v.$green-1;
+        color: v.$green-1;
+        background: linear-gradient(v.$bg-1, v.$bg-2);
+        border-radius: 5px;
+        margin-top: 2rem;
+        display: block;
+        text-align: center;
+        max-width: 400px;
+    }
+}
+
+//Footer
+footer {
+    padding: 1.25em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: linear-gradient(v.$bg-2-tp, v.$bg-2);
+
+    #footer-name {
+        font-size: 15pt;
+    }
+    #footer-sm-cont {
+        a {
+            font-size: 23pt;
+            opacity: 0.5;
+            margin-right: 0.75rem;
+            transition: 0.5s opacity;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    @media screen and (max-width: v.$mobile-break-m) {
+        flex-flow: column;
+        justify-content: center;
+
+        #footer-sm-cont {
+            margin: 2rem 0 1rem;
+        }
+    }
+}
