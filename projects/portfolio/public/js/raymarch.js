@@ -1,3 +1,4 @@
+alert("0");
 window.onload = () => {
     if (
         typeof window !== "undefined" &&
@@ -12,7 +13,6 @@ window.onload = () => {
                 const vertexShader = `void main(){
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }`;
-
                 const fragmentShader = data;
 
                 let width = window.innerWidth;
@@ -120,7 +120,6 @@ window.onload = () => {
                         rect.top - e.clientY + height / 2,
                     ];
                 });
-
                 const sections = document.getElementsByClassName("rayt-sec");
                 let currentSection = sections[0];
 
