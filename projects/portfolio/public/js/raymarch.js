@@ -1,4 +1,3 @@
-alert("0");
 window.onload = () => {
     if (
         typeof window !== "undefined" &&
